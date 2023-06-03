@@ -25,7 +25,7 @@ def shutdown():
 async def index():
     return 'Hola mundo, desde un servidor en FastAPI'
 
-@app.post('/user/')
+@app.post('/user')
 async def create_user(user:UserBaseModel):
     user = User.create(
         username = user.username,
