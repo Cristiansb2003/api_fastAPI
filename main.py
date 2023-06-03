@@ -36,4 +36,7 @@ async def create_user(user:UserBaseModel):
         username = user.username,
         password = hash_password
     )
-    return user.id
+    return {
+        'id': user.id,
+        'username':user.username
+    }
