@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi import HTTPException
+
 from database import database as connection
 from database import User
 from database import UserReview
@@ -25,9 +27,10 @@ def shutdown():
 async def index():
     return 'Hola mundo, desde un servidor en FastAPI'
 
-@app.post('/user')
+@app.post('/users')
 async def create_user(user:UserBaseModel):
-
+    if User.select().where(User.username == user.username).exists():
+        return HTTPException(409, 'El username ya se encuentra en uso.')
     hash_password = User.create_password(user.password)
     user = User.create(
         username = user.username,
