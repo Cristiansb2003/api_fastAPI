@@ -11,6 +11,13 @@ class PeeweeGetterDict(GetterDict):
             return list(res)
         
         return res
+    
+class ResponseModel(BaseModel):
+    class Config:
+        orm_mode = True
+        getter_dict = PeeweeGetterDict
+
+# ------------------- User
 
 class UserRequestModel(BaseModel):
     username:str
@@ -22,11 +29,18 @@ class UserRequestModel(BaseModel):
             raise ValueError('La longitud debe encontrarse entre 3 y 50 caracteres.')
         return username
 
-class UserResponseModel(BaseModel):
+class UserResponseModel(ResponseModel):
     id: int
     username:str
 
-    class Config:
-        orm_mode = True
-        getter_dict = PeeweeGetterDict
+class ReviewRequestModel(BaseModel):
+    user_id: int
+    movie_id: int
+    review: str
+    score: int
 
+class ReviewResponseModel(ResponseModel):
+    id:int
+    movie_id: int
+    review: str
+    score: int
