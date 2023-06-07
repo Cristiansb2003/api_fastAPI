@@ -68,3 +68,7 @@ async def get_reviews():
     reviews = UserReview.select()#SELECT * FROM user_reviews;
 
     return [user_review for user_review in reviews]
+
+@app.get('/reviews/{review_id}')
+async def get_review(review_id:int):
+    return review_id
