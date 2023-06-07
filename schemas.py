@@ -33,8 +33,13 @@ class UserResponseModel(ResponseModel):
     id: int
     username:str
 
+#-------------------Movie------------------
+class MovieResponsModel(ResponseModel):
+    id:int
+    title:str
 
-#-------------------Review
+
+#-------------------Review----------------------
 
 
 class ReviewRequestModel(BaseModel):
@@ -51,7 +56,7 @@ class ReviewRequestModel(BaseModel):
     
 class ReviewResponseModel(ResponseModel):
     id:int
-    movie_id: int
+    movie: MovieResponsModel
     review: str
     score: int
 
