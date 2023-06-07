@@ -92,3 +92,12 @@ async def update_review(review_id:int, review_request: ReviewRequestPutModel):
 
     return user_review
 
+@app.delete('/reviews/{review_id}', response_model=ReviewResponseModel)
+async def delete_review(review_id:int):
+    user_review = UserReview.select().where(UserReview.id == review_id).first()
+    if user_review is None:
+        raise HTTPException(status_code=404, detail= 'Review Not found')
+
+    user_review.delete_instance()
+
+    return user_review
