@@ -1,5 +1,8 @@
 from fastapi import APIRouter
 
+
+from fastapi import Response
+
 from fastapi.security import HTTPBasicCredentials
 
 from fastapi import HTTPException
@@ -21,7 +24,7 @@ async def create_user(user:UserRequestModel):
     return user
 
 @router.post('/login', response_model=UserResponseModel)
-async def login(credentials: HTTPBasicCredentials):
+async def login(credentials: HTTPBasicCredentials, response: Response):
     user = User.select().where(User.username == credentials.username).first()
 
     if user is None:
@@ -30,4 +33,6 @@ async def login(credentials: HTTPBasicCredentials):
     if user.password != User.create_password(credentials.password):
         raise HTTPException(404, 'Password error')
     
+    response.set_cookie(key='user_id', value=user.id)
+    response.set_cookie(key='ejemplo', value=True)
     return user
