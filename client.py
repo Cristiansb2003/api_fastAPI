@@ -1,6 +1,6 @@
 import requests
 
-URL = 'http://localhost:8000/api/v1/reviews'
+URL = 'http://localhost:8000/api/v1/reviews?page=1&limit=2'
 
 HEADERS = {'accept': 'application/json'}
 
@@ -13,3 +13,4 @@ if response.status_code == 200:
         reviews = response.json()
         for review in reviews:
             print(f"score: {review['score']}-{review['review']}")
+
